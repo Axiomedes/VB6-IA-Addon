@@ -97,34 +97,18 @@ El sistema opera mediante dos componentes locales comunicados por HTTP en su pro
 ```text
 
 ┌───────────────────────────────┐               ┌───────────────────────────────┐
-
 │     VISUAL BASIC 6.0 IDE      │   HTTP/JSON   │        SERVICIO LOCAL         │
-
 │         (Add-In DLL)          ├──────────────►│     (Python FastAPI Bridge)   │
-
 │  - Captura código en memoria  │ 127.0.0.1:8765│  - Adapta prompts a VB6 (SP6) │
-
 │  - Muestra chat y diferencias │               │  - Conecta con Ollama/Cloud   │
-
 └───────────────────────────────┘               └───────────────┬───────────────┘
-
                                                                 │
-
                                               ┌─────────────────┴─────────────────┐
-
                                               ▼                                   ▼
-
                                       IA LOCAL (Ollama)                   IA NUBE (OpenRouter /
-
                                       (127.0.0.1:11434)                   Gemini / Groq / OpenAI)
-
 ```
-
-
-
 ---
-
-
 
 ------------------------------------------------------------------------------------------
 
