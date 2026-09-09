@@ -425,4 +425,5 @@ Puedes utilizar **IA Local** (sin internet ni claves) o **APIs Cloud Gratuitas**
 
 
 *Desarrollado por Axio.UK para la comunidad de desarrolladores de Microsoft Visual Basic 6.0.*
+*Idea Original de @Ivo (Argentina) dentro del Grupo Whatsapp Lationamericano de Visual Basic 6.0*
 
