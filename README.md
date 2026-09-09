@@ -1,4 +1,106 @@
-VB6-AI Assistant (VB6 Addon)
+# VB6-AI Assistant (VB6 Addon)
+
+Aquí tienes el **Diccionario de Características y Funciones de VB6 AI Assistant**, organizado por áreas operativas con definiciones claras y detalladas de cara al programador de Visual Basic 6.0:
+
+---
+
+## 🎨 1. Interfaz de Usuario y Experiencia Visual (UI)
+
+* **Chat RichTextBox (`txtChat`)**:  
+  Control de texto enriquecido nativo que sustituye los cuadros de texto estándar para permitir la visualización de respuestas con estilos tipográficos, negritas, sangrías y bloques diferenciados.
+* **Mecanismo Anti-Flicker (`WM_SETREDRAW`)**:  
+  Técnica de optimización gráfica que desactiva temporalmente el repintado de la ventana durante la inserción de texto y formateo de color mediante la API de Windows `SendMessage`, eliminando el parpadeo molesto al recibir respuestas de la IA.
+* **Resaltado por Colores Semánticos**:  
+  Sistema visual que asigna colores automáticos según la naturaleza del mensaje:
+  * **Negrita Negra (`vbBlack`)**: Encabezados de roles (`USUARIO`, `ASISTENTE`, `SISTEMA`).
+  * **Rojo (`vbRed`)**: Errores de sintaxis, fallos de conexión o excepciones.
+  * **Naranja (`&H0080FF&`)**: Avisos, advertencias de compatibilidad y sugerencias de revisión.
+  * **Azul (`vbBlue`)**: Propuestas de cambio de código y refactorizaciones.
+  * **Verde Oscuro (`&H008000&`)**: Código generado listo para usar, confirmaciones y operaciones exitosas.
+* **Procesamiento Preciso de Saltos de Línea**:  
+  Controlador que interpreta adecuadamente secuencias `vbCrLf`, `\r\n` y `\n`, garantizando que el código y los párrafos mantengan su estructura vertical sin acumularse hacia la derecha.
+* **Botón de Configuración Directa (`Cfg`)**:  
+  Acceso directo situado en la cabecera de la ventana principal que abre el panel de control de proveedores y credenciales en modo modal.
+* **Barra de Estado en Tiempo Real (`lblStatus`)**:  
+  Etiqueta dinámica que informa visualmente sobre la conectividad del servicio local, el estado de la inferencia (*Consultando*, *Generando*, *Completado*, *Error*) y el modelo activo.
+
+---
+
+## 🧠 2. Conectividad y Motores de Inteligencia Artificial
+
+* **Soporte para IA Local (Ollama)**:  
+  Capacidad de ejecutar modelos de lenguaje (como *CodeLlama*, *Llama 3*, *Qwen 2.5 Coder*) directamente en el hardware del equipo sin conexión a internet, garantizando **100% de privacidad, gratuidad total y sin límites de cuotas**.
+* **Integración con Proveedores Cloud (APIs en la Nube)**:  
+  Conectores para servicios líderes en la nube:
+  * **OpenRouter**: Acceso a modelos potentes gratuitos (`:free`) como *DeepSeek R1*, *Llama 3.3 70B* o *Qwen 2.5 Coder 32B*.
+  * **Google Gemini**: Respuestas ultra-rápidas con amplia ventana de contexto (*Gemini 2.0 Flash*).
+  * **Groq**: Inferencia de velocidad extrema basada en LPUs.
+  * **OpenAI**: Modelos comerciales *GPT-4o*, *GPT-4o-mini* y *o3-mini*.
+  * **Anthropic Claude**: Modelos de razonamiento avanzado *Claude 3.5 Sonnet* y *Haiku*.
+* **Descubrimiento Dinámico de Modelos (`Fetch Models`)**:  
+  Función que consulta en vivo la API del proveedor seleccionado y lista en el desplegable todos los modelos disponibles en ese momento.
+* **Validador de Conexión en Vivo (`Test Connection`)**:  
+  Herramienta de diagnóstico que verifica si la clave API o la URL del servidor local son válidas antes de guardar la configuración, mostrando confirmaciones `[OK]` o detalles de error `[X]`.
+* **System Prompt Especializado en VB6 (SP6)**:  
+  Instrucciones maestras enviadas a la IA que le prohíben estrictamente generar sintaxis moderna incompatible (como `Dim x = 5`, `Try...Catch`, `+=`, tipos de .NET) y la obligan a generar código 100% compatible con Visual Basic 6.0 clásico.
+* **Inferencia Asíncrona No Bloqueante (Job Polling)**:  
+  Arquitectura desacoplada basada en temporizadores de 200 ms que evita que el IDE de VB6 se congele mientras la IA procesa la respuesta, permitiendo al usuario continuar programando o cancelar la consulta.
+
+---
+
+## 🎯 3. Captura y Manejo Inteligente de Contexto
+
+* **Resolución Inteligente de Contexto (`SmartResolveContext`)**:  
+  Módulo que analiza la petición del usuario y determina automáticamente qué parte del código debe ser extraída del IDE para acompañar la consulta.
+* **Detección Automática de Funciones y Procedimientos**:  
+  Si el usuario escribe por ejemplo *"analiza la función CalcularTotales"*, el Add-In busca automáticamente esa subrutina o función en el módulo activo y la adjunta como contexto sin requerir selección manual.
+* **Captura de Selección Manual (`GetSelectedCode`)**:  
+  Extrae el bloque exacto de líneas que el programador haya seleccionado con el ratón en la ventana de código activa.
+* **Captura de Módulo Completo (`GetActiveModuleCode`)**:  
+  Obtiene todo el contenido del formulario (`.frm`), módulo estándar (`.bas`) o clase (`.cls`) que se encuentre abierto y activo en el editor.
+* **Botón Analizar Código (`cmdAnalyze`)**:  
+  Disparador de un solo clic que inyecta un prompt predefinido de auditoría de calidad, rendimiento y detección de fugas de memoria sobre el contexto actual.
+
+---
+
+## 🔍 4. Comparación y Aplicación Segura de Cambios
+
+* **Visor Comparativo de Cambios (`frmChanges`)**:  
+  Ventana de revisión en paralelo que muestra el código original del editor frente al código propuesto por la IA para su validación previa.
+* **Extractor Limpio de Bloques de Código**:  
+  Algoritmo del backend que limpia etiquetas Markdown (```vb, ```vb6, ```) y comentarios envolventes para entregar código puro listo para compilar.
+* **Aplicación Directa al Editor (`cmdApprove`)**:  
+  Comando que reemplaza el código en la ventana activa del IDE de VB6 con un solo clic.
+* **Puntos de Restauración y Rollback (`Backups`)**:  
+  Mecanismo de seguridad que almacena en la base de datos local una copia exacta del código antes de modificarlo, permitiendo auditoría y recuperación en caso de cambios no deseados.
+
+---
+
+## 🌐 5. Internacionalización y Soporte Multilingüe (i18n)
+
+* **Detección Automática de Idioma Win32 (`modI18N`)**:  
+  Lectura automática del idioma del sistema operativo mediante la API `GetUserDefaultUILanguage`, configurando el Add-In en Español (`es`) para entornos hispanos o en Inglés (`en`) para cualquier otro entorno.
+* **Selector Manual de Idioma**:  
+  Opción en `frmConfig` para forzar `Auto`, `Español` o `English`.
+* **Traducción en Caliente**:  
+  Actualización instantánea de todos los menús, botones, etiquetas y mensajes de los formularios abiertos al cambiar de idioma, sin requerir reinicio del IDE.
+* **Respuestas de la IA Adaptadas al Idioma**:  
+  Parámetro que instruye al modelo de IA a redactar sus explicaciones, diagnósticos y comentarios en el idioma seleccionado por el desarrollador.
+
+---
+
+## 🗄️ 6. Persistencia y Arquitectura de Datos
+
+* **Servicio Puente Local (`VB6AIService` / Python FastAPI)**:  
+  Microservicio en segundo plano (`http://127.0.0.1:8765`) que actúa como intermediario entre las llamadas HTTP del Add-In Win32 y los distintos endpoints de IA.
+* **Base de Datos Local SQLite (`VB6AI.db`)**:  
+  Motor de almacenamiento relacional embebido que registra proyectos, conversaciones, historial de mensajes, acciones y copias de seguridad de código.
+* **Migración Automática de Esquemas**:  
+  Rutina de inicialización que actualiza automáticamente las tablas y columnas de la base de datos para garantizar compatibilidad entre versiones sin perder datos.
+* **Normalización de Codificación Windows-1252 (CP1252)**:  
+  Garantía de que todos los archivos fuente y cadenas de texto utilicen la codificación ANSI nativa de VB6, asegurando que acentos (`á`, `é`, `í`, `ó`, `ú`), la letra `ñ` y signos (`¿`, `¡`) se muestren limpios y sin caracteres extraños (*mojibake*).
+  
+------------------------------------------------------------------------------------------------
 
 # GUÍA DE CONFIGURACIÓN Y PUESTA EN MARCHA — VB6 AI ASSISTANT
 
